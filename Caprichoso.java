@@ -25,9 +25,19 @@ public class Caprichado extends AdvancedRobot {
         double enemyBearing = e.getBearing(); // Direção do inimigo em relação ao robô
         double absoluteBearing = getHeading() + enemyBearing; // Direção absoluta
 
+	    
+// INTEGRANTE 1  -  RADAR //
+
+	    
         // **Radar**: Travar no inimigo
         double radarTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getRadarHeading());
         setTurnRadarRight(radarTurn);
+	    
+
+	    
+// INTEGRANTE 3  -  TIRO //
+
+      
 
         // **Arma**: Mira no inimigo
         double gunTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
@@ -42,6 +52,12 @@ public class Caprichado extends AdvancedRobot {
             fire(1); // Potência mínima para alvos distantes
         }
 
+
+	    
+// INTEGRANTE 2  -  MOVIMENTO //
+
+	    
+      
         // **Movimento**: Estratégia para desviar
         if (distance < 150) {
             setTurnRight(enemyBearing + 90); // Ficar a 90 graus do inimigo
@@ -52,6 +68,12 @@ public class Caprichado extends AdvancedRobot {
         }
     }
 
+
+	    
+// INTEGRANTE 4  -  REAÇÃO A TIROS RECEBIDOS //
+
+	    
+      
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
         // Reação ao ser atingido: movimento evasivo
@@ -63,6 +85,12 @@ public class Caprichado extends AdvancedRobot {
         fire(1.5); // Tiro médio como reação
     }
 
+
+	    
+// INTEGRANTE X  -  MOVIMENTO EXTRA //
+
+	    
+      
     @Override
     public void onHitWall(HitWallEvent e) {
         // Reação ao bater na parede: recua e vira
