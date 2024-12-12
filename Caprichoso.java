@@ -26,7 +26,7 @@ public class Caprichado extends AdvancedRobot {
         double absoluteBearing = getHeading() + enemyBearing; // Direção absoluta
 
 	    
-// INTEGRANTE 1  -  RADAR //
+// RUDOLPH  -  RADAR //
 
 	    
         // **Radar**: Travar no inimigo
@@ -35,7 +35,7 @@ public class Caprichado extends AdvancedRobot {
 	    
 
 	    
-// INTEGRANTE 3  -  TIRO //
+// THIAGO  -  TIRO //
 
       
 
@@ -54,7 +54,7 @@ public class Caprichado extends AdvancedRobot {
 
 
 	    
-// INTEGRANTE 2  -  MOVIMENTO //
+// LUCAS  -  MOVIMENTO //
 
 	    
       
@@ -70,7 +70,7 @@ public class Caprichado extends AdvancedRobot {
 
 
 	    
-// INTEGRANTE 4  -  REAÇÃO A TIROS RECEBIDOS //
+// GIULIANO  -  REAÇÃO A TIROS RECEBIDOS //
 
 	    
       
