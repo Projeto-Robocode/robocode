@@ -63,10 +63,10 @@ public class Caprichado extends AdvancedRobot {
             setTurnRight(enemyBearing + 90); // Ficar a 90 graus do inimigo
             setAhead(100); // Avançar
         } else {
-            setTurnRight(360);
-			ahead(360);
-			setTurnLeft(360);
-			ahead(360);
+            setTurnRight(180);
+			ahead(180);
+			setTurnLeft(180);
+			ahead(180);
         }
     }
 
@@ -96,7 +96,7 @@ public class Caprichado extends AdvancedRobot {
     @Override
     public void onHitWall(HitWallEvent e) {
         // Reação ao bater na parede: recua e vira
-        back(100); // Dá ré
+        back(50); // Dá ré
         setTurnRight(90); // Gira pra se afastar
 		}
 	
