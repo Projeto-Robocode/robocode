@@ -99,5 +99,4 @@ public class Caprichado extends AdvancedRobot {
         back(100);
 		setTurnRight(180); // Gira pra se afastar
 		}
-	
 }
