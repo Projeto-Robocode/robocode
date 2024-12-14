@@ -96,8 +96,8 @@ public class Caprichado extends AdvancedRobot {
     @Override
     public void onHitWall(HitWallEvent e) {
         // Reação ao bater na parede: recua e vira
-        back(50); // Dá ré
-        setTurnRight(90); // Gira pra se afastar
+        back(100);
+		setTurnRight(180); // Gira pra se afastar
 		}
 	
 }
