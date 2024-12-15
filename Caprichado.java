@@ -96,12 +96,15 @@ public class Caprichado extends AdvancedRobot {
     @Override
     public void onHitWall(HitWallEvent e) {
 		// Atualização caso o robô bata na parede.
-        if (e.getBearing() >= -90 && e.getBearing() <= 90)
+        if (e.getBearing() >= 0) 
 		{
-			back(100);
-		} else 
-		{
-			ahead(100);
+			turnLeft(e.getBearing() + 90);
 		}
+		if (e.getBearing() <= 0)
+		{
+			turnRight(e.getBearing() + 90);
+		}
+		ahead(50);
 	}
 }
+
