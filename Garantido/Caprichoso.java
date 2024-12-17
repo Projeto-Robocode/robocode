@@ -3,7 +3,7 @@ package Garantido;
 import robocode.*;
 import java.awt.Color;
 
-public class Caprichado extends AdvancedRobot {
+public class Caprichoso extends AdvancedRobot {
     
     @Override
     public void run() {
@@ -11,13 +11,28 @@ public class Caprichado extends AdvancedRobot {
         setColors(Color.RED, Color.BLACK, Color.WHITE); // Corpo, arma, radar
         setAdjustGunForRobotTurn(true); // Desacopla a arma do movimento do robô
         setAdjustRadarForGunTurn(true); // Desacopla o radar da arma
+		
+		private double lastEnergy = 100.0; // Armazena a energia do robô antes de ser atingido
+	    private String lastAttacker = "";  // Armazena o nome do inimigo que atacou
 
         // Mantém o radar girando constantemente
         while (true) {
             setTurnRadarRight(Double.POSITIVE_INFINITY); // Radar nunca para
-            execute();
+            if (getEnergy() < 30) {
+                evasiveManeuver(); // Fazer manobra evasiva
+            } else {
+                // Se tiver energia suficiente, buscar atacar
+                if (lastAttacker != "") {
+                    attack(lastAttacker); // Priorizar atacar o inimigo que atacou
+                } else {
+                    moveRandomly(); // Movimento aleatório se não há inimigos específicos
+                }
+            }
+            execute(); // Executa o movimento atual
         }
     }
+
+
 
     @Override
     public void onScannedRobot(ScannedRobotEvent e) {
@@ -71,6 +86,40 @@ public class Caprichado extends AdvancedRobot {
 
 	    
 // GIULIANO  -  REAÇÃO A TIROS RECEBIDOS //
+
+    // Método que implementa a manobra evasiva
+    private void evasiveManeuver() {
+        setTurnRight(90); // Giro rápido para dificultar o alvo
+        setAhead(100); // Avançar para frente
+        setTurnLeft(90); // Outro giro rápido
+    }
+
+    private void moveRandomly() {
+        // Variáveis de movimento aleatório
+        double randomTurn = Math.random() * 180 - 90; // Gira aleatoriamente entre -90 e 90 graus
+        double randomDistance = Math.random() * 200; // Distância aleatória de 0 a 200 pixels
+        double randomSpeed = Math.random() * 2 + 1; // Velocidade aleatória de 1 a 3 (tamanho do passo)
+
+        // Alterna o movimento entre frente e atrás
+        if (Math.random() > 0.5) {
+            setAhead(randomDistance); // Avança uma distância aleatória
+        } else {
+            setBack(randomDistance); // Vai para trás
+        }
+
+        // Gira aleatoriamente à esquerda ou à direita
+        setTurnRight(randomTurn); // Gira aleatoriamente entre -90 e 90 graus
+
+        // Ajusta a velocidade de movimento
+        setMaxVelocity(randomSpeed); // Aumenta ou diminui a velocidade
+
+        // Se o robô estiver próximo das bordas do campo, evita sair do campo
+        if (getX() < 50 || getX() > getBattleFieldWidth() - 50 || getY() < 50 || getY() > getBattleFieldHeight() - 50) {
+            // Reverte para o centro do campo ou muda de direção para evitar a borda
+            setTurnRight(180); // Gira 180º para mudar de direção
+            setAhead(150); // Avança para fora da borda
+        }
+    }
 
 	    
       
