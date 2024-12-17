@@ -99,12 +99,19 @@ public class Caprichado extends AdvancedRobot {
         if (e.getBearing() >= 0) 
 		{
 			turnLeft(e.getBearing() + 90);
+			setTurnLeft(180);
+			ahead(180);
+			setTurnRight(180);
+			ahead(180);
 		}
 		if (e.getBearing() <= 0)
 		{
 			turnRight(e.getBearing() + 90);
+			setTurnRight(180);
+			ahead(180);
+			setTurnLeft(180);
+			ahead(180);
 		}
 		ahead(50);
 	}
 }
-
