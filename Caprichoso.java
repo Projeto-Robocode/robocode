@@ -43,15 +43,18 @@ public class Caprichado extends AdvancedRobot {
         double gunTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
         setTurnGunRight(gunTurn);
 
-        // **Tiro**: Ajustar potência com base na distância
-        if (distance < 200) {
-            fire(3); // Potência máxima para alvos próximos
-        } else if (distance < 500) {
-            fire(2); // Potência média
-        } else {
-            fire(1); // Potência mínima para alvos distantes
-        }
 
+		// **Verifica o ângulo** entre a arma e o inimigo
+		if (Math.abs(gunTurn) < 5) {
+			// **Tiro**: Ajustar potência com base na distância
+			if (distance < 200) {
+				fire(3); // Potência máxima para alvos próximos
+			} else if (distance < 500) {
+				fire(2); // Potência média
+			} else {
+				fire(1); // Potência mínima para alvos distantes
+			}
+		}
 
 	    
 // LUCAS  -  MOVIMENTO //
