@@ -3,7 +3,7 @@ package Garantido;
 import robocode.*;
 import java.awt.Color;
 
-public class Caprichado extends AdvancedRobot {
+public class Caprichoso extends AdvancedRobot {
     
     @Override
     public void run() {
