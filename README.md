@@ -80,7 +80,7 @@ if (distance < 200) {
 }
 ```
 
-#### Possíveis melhorias:
+_Possíveis melhorias:_
 
 * Prever o movimento do inimigo e atirar onde ele estará, não onde ele está agora.
 
@@ -89,7 +89,8 @@ if (distance < 200) {
 * Criar estratégias de tiro mais agressivas contra inimigos fracos.
 
 
-*Melhoria 1:* Adicionado método para só atirar quando o ângulo entre a arma e o inimigo for menor de 5 graus.
+#### Melhoria 1:
+Adicionado método para só atirar quando o ângulo entre a arma e o inimigo for menor de 5 graus.
 ```
 if (Math.abs(gunTurn) < 5) {...}
 ```
