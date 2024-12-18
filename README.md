@@ -80,7 +80,7 @@ if (distance < 200) {
 }
 ```
 
-_Possíveis melhorias:_
+# Possíveis melhorias:
 
 * Prever o movimento do inimigo e atirar onde ele estará, não onde ele está agora.
 
