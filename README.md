@@ -89,6 +89,12 @@ _Possíveis melhorias:_
 * Criar estratégias de tiro mais agressivas contra inimigos fracos.
 
 
+#### Melhoria 1:
+Adicionado método para só atirar quando o ângulo entre a arma e o inimigo for menor de 5 graus.
+```
+if (Math.abs(gunTurn) < 5) {...}
+```
+
 
 
 ## 4. Reação a tiros recebidos (Giuliano)
