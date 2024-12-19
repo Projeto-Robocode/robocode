@@ -113,14 +113,17 @@ if (Math.abs(gunTurn) < 5) {
 
 	    
       
-        // **Movimento**: Estratégia para desviar
-        if (distance < 150) {
+       // **Movimento**: Estratégia para desviar
+       if (distance < 150) {
             setTurnRight(enemyBearing + 90); // Ficar a 90 graus do inimigo
             setAhead(100); // Avançar
         } else {
-            setTurnRight(30); // Movimentos mais aleatórios
-            setAhead(200);
+            setTurnRight(180);
+            ahead(180);
+            setTurnLeft(180);
+            ahead(180);
         }
+		
     }
 
 
@@ -215,9 +218,23 @@ if (Math.abs(gunTurn) < 5) {
       
     @Override
     public void onHitWall(HitWallEvent e) {
-        // Reação ao bater na parede: recua e vira
-        back(50); // Dá ré
-        setTurnRight(90); // Gira pra se afastar
+            if (e.getBearing() >= 0) 
+            {
+                turnLeft(e.getBearing() + 90);
+                setTurnLeft(180);
+                ahead(180);
+                setTurnRight(180);
+                ahead(180);
+            }
+            if (e.getBearing() <= 0)
+            {
+                turnRight(e.getBearing() + 90);
+                setTurnRight(180);
+                ahead(180);
+                setTurnLeft(180);
+                ahead(180);
+            }
+            ahead(50);
 		}
 	
 }
