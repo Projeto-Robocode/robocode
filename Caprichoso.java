@@ -112,6 +112,40 @@ if (Math.abs(gunTurn) < 5) {
 	    
 // GIULIANO  -  REAÇÃO A TIROS RECEBIDOS //
 
+	 // Método que implementa a manobra evasiva
+    private void evasiveManeuver() {
+        setTurnRight(90); // Giro rápido para dificultar o alvo
+        setAhead(100); // Avançar para frente
+        setTurnLeft(90); // Outro giro rápido
+    }
+
+    private void moveRandomly() {
+        // Variáveis de movimento aleatório
+        double randomTurn = Math.random() * 180 - 90; // Gira aleatoriamente entre -90 e 90 graus
+        double randomDistance = Math.random() * 200; // Distância aleatória de 0 a 200 pixels
+        double randomSpeed = Math.random() * 2 + 1; // Velocidade aleatória de 1 a 3 (tamanho do passo)
+
+        // Alterna o movimento entre frente e atrás
+        if (Math.random() > 0.5) {
+            setAhead(randomDistance); // Avança uma distância aleatória
+        } else {
+            setBack(randomDistance); // Vai para trás
+        }
+
+        // Gira aleatoriamente à esquerda ou à direita
+        setTurnRight(randomTurn); // Gira aleatoriamente entre -90 e 90 graus
+
+        // Ajusta a velocidade de movimento
+        setMaxVelocity(randomSpeed); // Aumenta ou diminui a velocidade
+
+        // Se o robô estiver próximo das bordas do campo, evita sair do campo
+        if (getX() < 50 || getX() > getBattleFieldWidth() - 50 || getY() < 50 || getY() > getBattleFieldHeight() - 50) {
+            // Reverte para o centro do campo ou muda de direção para evitar a borda
+            setTurnRight(180); // Gira 180º para mudar de direção
+            setAhead(150); // Avança para fora da borda
+        }
+    }
+
 	    
       
     @Override
@@ -124,7 +158,6 @@ if (Math.abs(gunTurn) < 5) {
         turnGunRight(robocode.util.Utils.normalRelativeAngleDegrees(getHeading() - getGunHeading()));
         fire(1.5); // Tiro médio como reação
     }
-
 
 	    
 // INTEGRANTE X  -  MOVIMENTO EXTRA //
