@@ -7,11 +7,49 @@
 
 2. Além disso, quando o robô é atingido, a reação é ótima (virar na direção oposta e avançar), mas você pode adicionar um pouco mais de aleatoriedade ou um comportamento de ziguezague para tornar o robô mais imprevisível após ser atingido.
 
+#### SUGESTÃO:
+No método onScannedRobot, substitua a parte do movimento:
+(Agora, quando o inimigo está perto, o robô faz um movimento de ziguezague aleatório com uma direção alternada.)
+
+'// **Movimento**: Estratégia para desviar
+if (distance < 150) {
+    // Movimento evasivo: ziguezague ou círculo
+    setTurnRight(45 * (Math.random() > 0.5 ? 1 : -1)); // Muda aleatoriamente de direção
+    setAhead(100); // Avança
+} else {
+    setTurnRight(30); // Movimentos mais aleatórios
+    setAhead(200);
+}'
+
+
+
 
 ### Ajuste de disparo:
 1. O seu cálculo para disparar no inimigo com base na distância é bom, mas o valor de potência (fire(3), fire(2), fire(1)) pode ser ajustado dependendo de mais fatores, como o número de voltas de tiros ou a probabilidade de evasão do inimigo. Robôs mais rápidos e evasivos, por exemplo, podem ser mais difíceis de atingir com um tiro de alta potência.
 
 2. Você também pode implementar alguma forma de estratégia de controle de potência de disparo, onde o robô usa menos potência se o inimigo estiver em movimento rápido e mais potência se estiver parado ou se a distância for curta.
+
+#### SUGESTÃO:
+No cálculo de disparo, dentro do "onScannedRobot":
+(A potência do disparo agora é ajustada dinamicamente com base na distância e na velocidade do inimigo.)
+
+'// Ajustar potência com base na distância e na velocidade do inimigo
+double power = 1; // Potência padrão
+if (distance < 200) {
+    power = 3; // Alta potência para distâncias curtas
+} else if (distance < 500) {
+    power = 2; // Potência média para distâncias médias
+} else {
+    power = 1; // Potência baixa para distâncias longas
+}
+
+// Leva em conta a velocidade do inimigo
+if (e.getVelocity() > 8) { // Inimigos rápidos
+    power = Math.max(1, power - 0.5); // Diminui potência para inimigos rápidos
+}
+
+fire(power); // Dispara com a potência calculada'
+
 
 
 ### Movimento de evasão e escolha de direção:
@@ -19,11 +57,37 @@
 
 2. Uma boa estratégia seria calcular a probabilidade de ser atingido com base na posição relativa e na distância do inimigo, fazendo com que o robô execute um movimento evasivo mais inteligente quando mais ameaçado.
 
+#### SUGESTÃO:
+No método onHitWall, substitua a parte do movimento:
+(Agora o robô gira aleatoriamente após bater na parede, dificultando previsões de movimento e criando uma resposta mais imprevisível.)
+
+'@Override
+public void onHitWall(HitWallEvent e) {
+    // Reação ao bater na parede: recua e gira de forma imprevisível
+    back(50); // Dá ré
+    setTurnRight(90 + (Math.random() > 0.5 ? 1 : -1) * 90); // Gira aleatoriamente para sair da parede
+    setAhead(100); // Avança em uma direção aleatória
+}'
+
+
+
 
 ### Previsão da posição futura do inimigo:
 1. A previsão de posição futura do inimigo que você implementou está bastante sólida. No entanto, a maneira de calcular o tempo de impacto (com distance / 14) pode ser aprimorada. Você pode melhorar isso levando em consideração a velocidade do inimigo e o tempo até o tiro com mais precisão, talvez considerando a aceleração ou mudanças na direção do inimigo.
 
 2. Uma forma interessante seria utilizar técnicas mais avançadas de predictive aiming, onde você ajusta dinamicamente sua estimativa de onde o inimigo estará, dependendo da precisão dos disparos anteriores.
+
+#### SUGESTÃO:
+No seu código de previsão de posição do inimigo, substitua a parte que calcula a posição futura:
+(Agora, o cálculo de tempo até o disparo e a posição futura do inimigo leva em consideração o ângulo do canhão, a velocidade do inimigo e o movimento relativo mais precisamente.)
+
+'// Calcula o tempo até o disparo atingir o inimigo
+double timeToHit = distance / (20 - 3 * Math.abs(Math.cos(Math.toRadians(absoluteBearing - getGunHeading())))); // Considera ângulo e velocidade
+
+// Calcula a posição futura com mais precisão
+double futureX = enemyX + Math.sin(Math.toRadians(enemyHeading)) * enemySpeed * timeToHit;
+double futureY = enemyY + Math.cos(Math.toRadians(enemyHeading)) * enemySpeed * timeToHit;'
+
 
 
 ### Reações ao bater na parede:
@@ -32,6 +96,32 @@
 ### Estratégia de escolha de alvo:
 1. Atualmente, o robô só reage ao primeiro inimigo que ele vê. Isso pode ser suficiente em algumas situações, mas você pode pensar em uma estratégia de priorização de alvos caso o robô veja múltiplos inimigos. Ele pode escolher atacar o inimigo mais próximo ou o mais ameaçador, dependendo da situação.
 
+#### SUGESTÃO:
+Em vez de apenas atacar o primeiro inimigo que o robô escaneia, você pode implementar uma estratégia de escolha de alvo. Por exemplo, escolher o inimigo mais próximo ou o mais perigoso (como o mais rápido).
+(Agora, o robô escolhe um alvo prioritário com base na distância e velocidade do inimigo, atacando o mais perigoso ou mais próximo.)
+
+'// Variável para armazenar o inimigo mais prioritário
+ScannedRobotEvent targetEnemy = null;
+double minDistance = Double.MAX_VALUE; // Distância mínima
+double maxSpeed = 0; // Velocidade máxima
+
+@Override
+public void onScannedRobot(ScannedRobotEvent e) {
+    double distance = e.getDistance();
+    double enemySpeed = e.getVelocity();
+
+    // Prioriza o inimigo mais próximo ou mais rápido
+    if (distance < minDistance || (enemySpeed > maxSpeed && distance < 500)) {
+        targetEnemy = e;
+        minDistance = distance;
+        maxSpeed = enemySpeed;
+    }
+
+    if (targetEnemy != null) {
+        // Calcular o disparo e movimento para o inimigo prioritário
+        // (Aqui você pode repetir o código de disparo e movimentação para esse inimigo)
+    }
+}'
 
 ## Resumo das melhorias:
 1. Use movimentos mais aleatórios e evasivos (ziguezague, círculos) para tornar o robô imprevisível.
