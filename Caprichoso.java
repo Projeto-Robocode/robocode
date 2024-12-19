@@ -3,7 +3,7 @@ package Garantido;
 import robocode.*;
 import java.awt.Color;
 
-public class Caprichoso extends AdvancedRobot {
+public class Caprichado extends AdvancedRobot {
     
     @Override
     public void run() {
@@ -39,18 +39,58 @@ public class Caprichoso extends AdvancedRobot {
 
       
 
-        // **Arma**: Mira no inimigo
-        double gunTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
-        setTurnGunRight(gunTurn);
+            
 
-        // **Tiro**: Ajustar potência com base na distância
+   // canhão mira no inimigo
+double gunTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
+setTurnGunRight(gunTurn);
+
+
+// verifica o ângulo entre canhão e inimigo
+if (Math.abs(gunTurn) < 5) {
+    // calcula posição futura com base na velocidade e direção
+    double enemySpeed = e.getVelocity(); 
+    double enemyHeading = e.getHeading(); 
+
+    // calcula a posição atual 
+    double absoluteEnemyBearing = getHeading() + e.getBearing(); 
+    double enemyX = getX() + Math.sin(Math.toRadians(absoluteEnemyBearing)) * e.getDistance();
+    double enemyY = getY() + Math.cos(Math.toRadians(absoluteEnemyBearing)) * e.getDistance();
+
+    // calcula tempo até que o disparo atinja o inimigo
+    double timeToHit = distance / 14;
+
+    // calcula a posição futura do inimigo
+    double futureX = enemyX + Math.sin(Math.toRadians(enemyHeading)) * enemySpeed * timeToHit;
+    double futureY = enemyY + Math.cos(Math.toRadians(enemyHeading)) * enemySpeed * timeToHit;
+
+    // calcula a direção para a posição futura do inimigo
+    double angleToFuturePosition = Math.atan2(futureX - getX(), futureY - getY());
+    double gunTurnFuture = robocode.util.Utils.normalRelativeAngleDegrees(Math.toDegrees(angleToFuturePosition) - getGunHeading());
+
+
+  // ajusta a potência do tiro conforme energia
+    double currentEnergy = getEnergy();
+    double firePower;
+
+    // se energia baixa, usa tiros mais fracos
+    if (currentEnergy < 15) {
+        firePower = 1; 
+    } else {
+        // Ajuste a potência com base na distância
         if (distance < 200) {
-            fire(3); // Potência máxima para alvos próximos
+            firePower = 3; 
         } else if (distance < 500) {
-            fire(2); // Potência média
+            firePower = 2; 
         } else {
-            fire(1); // Potência mínima para alvos distantes
+            firePower = 1; 
         }
+    }
+
+    // Dispara com a potência ajustada 
+    fire(firePower);
+}
+
 
 
 	    
