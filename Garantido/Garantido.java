@@ -100,16 +100,14 @@ public class Garantido extends AdvancedRobot {
         double distance = e.getDistance();
         double firePower = calculateFirePower(distance);
 
-        if (Math.abs(gunTurn) < 10) {
+        // Dispara se o canhão estiver quase alinhado e a precisão for adequada
+        if (Math.abs(gunTurn) < 5) {
             fire(firePower);
         }
-
-        // Realiza uma manobra evasiva após disparar
-        setTurnRight(30 - Math.random() * 60); // Variação aleatória no movimento
-        setAhead(50 + Math.random() * 100); // Distância aleatória
     }
 
     private double calculateFirePower(double distance) {
+        // Ajusta a potência do tiro com base na distância
         if (distance < 150) {
             return MAX_BULLET_POWER; // Tiro forte
         } else if (distance < 500) {
@@ -154,7 +152,8 @@ public class Garantido extends AdvancedRobot {
         }
 
         private double getTimeElapsed() {
-            return 1; // Sempre estimar 1 turno de previsão
+            // Retorna uma estimativa refinada do tempo baseado na distância e velocidade
+            return Math.max(1, (lastVelocity / 14));
         }
     }
 }
