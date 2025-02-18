@@ -1,192 +1,119 @@
-# Robô Caprichoso
+# Trabalho 3 - Git e GitHub no Robocode 🚀
 
+**Professor:** Diego da Silva de Medeiros
+**Email:** [diegomedeiros@ifsc.edu.br](mailto:diegomedeiros@ifsc.edu.br)
 
+---
 
+## 1. Introdução 🤖
 
-## 1. Radar (Rudolph)
+Nesta atividade, utilizamos o **Robocode**, um jogo no qual construímos robôs simulando tanques de guerra para combater em uma arena virtual. Originalmente criado para ensinar programação em Java, o Robocode expandiu seu escopo e se tornou uma ferramenta para desenvolver habilidades de programação e trabalho em equipe. Contudo, o foco deste trabalho **não foi aprender Java ou construir o melhor robô**, mas sim nos familiarizarmos com o uso de ferramentas de controle de versão, especificamente o **Git** e o **GitHub**.
 
-Responsável por localizar e rastrear os inimigos com eficiência.
+O controle de versão é essencial no desenvolvimento de software, permitindo que múltiplos desenvolvedores trabalhem em conjunto sem sobrescrever alterações, além de oferecer um histórico detalhado das mudanças. O Git, aliado ao GitHub, se consolidou como a solução ideal para esses desafios, promovendo colaboração e organização no trabalho em equipe.
 
-**Objetivo:** Garantir que o radar fique sempre travado no inimigo, sem perder o alvo.
+---
 
-_Código principal:_
+## 2. Objetivos da Atividade 🎯
 
-```
-// Radar: Travar no inimigo
-double radarTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getRadarHeading());
-setTurnRadarRight(radarTurn);
-```
+1. **Aprender a utilizar o Git e o GitHub:** Dominar os comandos básicos (*clone, commit, push, pull, merge*) e compreender a aplicação dos Pull Requests para revisão e integração do código.
+2. **Desenvolver habilidades de programação e trabalho colaborativo:** Trabalhar em equipe, distribuindo funções específicas (Radar, Movimento, Tiro e Reação a tiros) para garantir que cada membro contribua de forma individual e integrada.
+3. **Implementar o robô “Caprichoso”:** Criar um robô que, mesmo simples e com trechos manuais (apenas aperfeiçoados com Inteligência Artificial pontual), apresenta movimentos imprevisíveis e respostas automáticas aos ataques.
+4. **Valorizar a comunicação e a organização:**
+   Superar desafios como conflitos de merge e falta de comunicação, essenciais para a execução de um projeto colaborativo de sucesso.
 
-_Possíveis melhorias:_
+---
 
-* Fazer o radar buscar novos inimigos automaticamente quando um inimigo sai do alcance.
+## 3. Descrição da Atividade 🛠️
 
-* Adicionar priorização de inimigos com menor energia ou mais próximos.
+### Desenvolvimento do Robô
 
-* Implementar lógica pra o radar girar continuamente até achar um inimigo.
+A atividade consistiu na criação de um robô no Robocode, chamado **"Caprichoso"**, que foi programado para competir em uma arena virtual. O projeto foi desenvolvido em equipe, com cada membro responsável por uma funcionalidade específica do robô. Focamos em desenvolver uma movimentação imprevisível para diminuir as chances do robô ser atingido, o que, com diversas alterações no código, se tornou um desafio cada vez maior. Apesar da simplicidade do código, grande parte foi desenvolvida manualmente – preservando a ideia original de cada membro – e com pequenas implementações de Inteligência Artificial para aperfeiçoamentos.
 
+### Divisão de Funções
 
+Cada membro foi responsável por uma parte do projeto:
 
+- **Radar:** *Responsável por detectar inimigos* – **Rudolf**
+- **Movimentação:** *Responsável por desenvolver movimentos imprevisíveis* – **Lucas**
+- **Tiro:** *Responsável por ajustar a lógica e precisão dos disparos* – **Thiago**
+- **Reação a tiros recebidos:** *Responsável por programar as respostas automáticas do robô* – **Giuliano**
 
-## 2. Movimento (Lucas)
+### Utilização do Git e GitHub
 
-Define como o robô se movimenta para atacar, desviar de tiros e evitar ficar previsível.
+- **Repositório:** Criamos o repositório na organização do GitHub, acessível em [https://github.com/Projeto-Robocode](https://github.com/Projeto-Robocode), garantindo que todos os membros pudessem contribuir de forma ordenada.
+- **Branches:** Para organizar o desenvolvimento, criamos diversas branches:
 
-**Objetivo:** Tornar o robô difícil de acertar e posicioná-lo bem durante as batalhas.
+  - **main:** Código base consolidado.
+  - **aprimorarTiro:** Focada na melhoria da função de tiro.
+  - **lucasluiz:** Dedicada à movimentação imprevisível.
+  - **radarmk2:** Voltada para aprimoramento do sistema de detecção (radar).
+  - **reacao:** Para implementar a resposta do robô ao ser atingido.
 
-_Código principal:_
+  Outras branches foram criadas para testes iniciais e, posteriormente, descartadas.
 
-```
-if (distance < 150) {
-    setTurnRight(enemyBearing + 90); // Ficar a 90 graus do inimigo
-    setAhead(100); // Avançar
-} else {
-    setTurnRight(30); // Movimentos mais aleatórios
-    setAhead(200);
-}
-```
+---
 
-_Possíveis melhorias:_
+## 4. Estrutura do Git e Estratégias de Versionamento 🔧
 
-* Tornar os movimentos mais imprevisíveis com números aleatórios ou curvas.
+- **Organização do Repositório:** O projeto está hospedado na organização **Projeto-Robocode** no GitHub, o que permitiu a colaboração de todos os membros de forma organizada e eficiente.
+- **Divisão em Branches e Fluxo de Trabalho:** Cada branch isolou o desenvolvimento de uma funcionalidade específica, permitindo testes independentes e a integração gradual:
 
-* Criar estratégias específicas pra fugir quando a energia estiver baixa.
+  - **main:** Código estável e base do projeto.
+  - **aprimorarTiro:** Focado na lógica de disparos.
+  - **lucasluiz:** Voltado para desenvolver a movimentação.
+  - **Radar mk2:** Para melhorias no sistema de detecção.
+  - **reacao:** Para a resposta aos ataques.
+- **Commits e Mensagens Claras:** A realização de **47 commits** com mensagens detalhadas possibilitou o rastreamento preciso das mudanças e facilitou a identificação de erros e a resolução de conflitos.
+- **Uso de Pull Requests:**
+  Mesmo com a importância dos Pull Requests para a revisão de código, a nossa estrutura colaborativa reduziu, em alguns casos, sua necessidade sem comprometer a qualidade do trabalho.
 
-* Implementar "movimento oscilante" pra desviar de tiros previsíveis.
+---
 
+## 5. Resultados e Aprendizados 📈
 
+### Resultados
 
+- O robô **“Caprichoso”** foi desenvolvido com sucesso, apresentando funcionalidades de movimentação, tiro, radar e reação a tiros recebidos.
+- O projeto demonstrou a eficácia do trabalho colaborativo e o uso adequado do Git e GitHub para a integração de diversas contribuições individuais.
 
-## 3. Tiro (Thiago)
+### Aprendizados
 
-Controla como e quando o robô atira, ajustando mira e potência.
+- **Domínio das Ferramentas de Versionamento:** Aprendemos a utilizar comandos essenciais do Git e a importância dos Pull Requests para garantir a qualidade do código.
+- **Trabalho em Equipe:** A experiência reforçou que a comunicação, a divisão clara de tarefas e a resolução colaborativa de conflitos são fundamentais para o sucesso de um projeto.
+- **Desafios Superados:** Enfrentamos dificuldades iniciais com conflitos de merge e a organização das tarefas, que foram superadas com prática, paciência e a correta aplicação dos dispositivos de versionamento.
+- **Integração de Técnicas:** Apesar de o código ter sido desenvolvido de forma manual para preservar a criatividade individual, a integração de trechos de Inteligência Artificial para aperfeiçoamentos demonstrou a capacidade de combinar diferentes técnicas para melhorar o produto final.
+- **Valorização do Aspecto Humano:**
+  A experiência evidenciou que, além das habilidades técnicas (hard skills), as soft skills – comunicação, colaboração e tato social – são fundamentais para o sucesso em ambientes de desenvolvimento.
 
-**Objetivo:** Acertar o inimigo com precisão, economizando energia em tiros inúteis.
+---
 
-_Código principal:_
+## 6. Conclusão 🏁
 
-```
-// Arma: Mira no inimigo
-double gunTurn = robocode.util.Utils.normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
-setTurnGunRight(gunTurn);
+Esta atividade foi extremamente valiosa para o aprendizado do controle de versão e do trabalho colaborativo. Ao utilizar o Git e o GitHub, conseguimos desenvolver o robô **“Caprichoso”** no Robocode, aplicando conceitos de programação e integração de funcionalidades em equipe. Mesmo com desafios como conflitos de merge e dificuldades iniciais, o projeto foi concluído com sucesso, e os aprendizados obtidos serão essenciais para futuros projetos no desenvolvimento de software.
 
-// Tiro: Ajustar potência com base na distância
-if (distance < 200) {
-    fire(3); // Potência máxima para alvos próximos
-} else if (distance < 500) {
-    fire(2); // Potência média
-} else {
-    fire(1); // Potência mínima para alvos distantes
-}
-```
+---
 
-_Possíveis melhorias:_
+## 7. Anexos 📎
 
-* Prever o movimento do inimigo e atirar onde ele estará, não onde ele está agora.
+### Imagens do Robô "Caprichoso" em Ação
 
-* Ajustar a potência do tiro com base na energia restante do próprio robô.
+![Robô Caprichoso em ação 1](media/image1.png)
+![Robô Caprichoso em ação 2](media/image2.png)
 
-* Criar estratégias de tiro mais agressivas contra inimigos fracos.
+### Imagens dos Commits
 
+![Commits 1](media/image3.png)
+![Commits 2](media/image4.png)
+![Commits 3](media/image5.png)
+![Commits 4](media/image6.png)
+![Commits 5](media/image7.png)
+![Commits 6](media/image8.png)
 
-#### Melhoria 1:
-Adicionado método para só atirar quando o ângulo entre a arma e o inimigo for menor de 5 graus.
-```
-if (Math.abs(gunTurn) < 5) {...}
-```
+---
 
+## Referências 🔗
 
+- **Repositório GitHub:** [https://github.com/Projeto-Robocode/robocode](https://github.com/Projeto-Robocode/robocode)
+- **Histórico de Commits:** [https://github.com/Projeto-Robocode/robocode/commits/](https://github.com/Projeto-Robocode/robocode/commits/)
 
-## 4. Reação a tiros recebidos (Giuliano)
-
-Define como o robô reage quando é atingido ou detecta perigo.
-
-**Objetivo:** Minimizar o dano recebido e contra-atacar de forma eficiente.
-
-_Código principal:_
-
-```
-// Reação ao ser atingido: movimento evasivo
-double bearing = e.getBearing(); // De onde veio o tiro
-setTurnRight(-bearing); // Gira na direção oposta
-setAhead(150); // Avança rapidamente
-// Atira de volta se possível
-turnGunRight(robocode.util.Utils.normalRelativeAngleDegrees(getHeading() - getGunHeading()));
-fire(1.5); // Tiro médio como reação
-```
-
-_Possíveis melhorias:_
-
-* Implementar estratégias mais complexas de fuga, como giros e mudanças rápidas de direção.
-
-* Decidir se deve atacar ou fugir dependendo da energia restante.
-
-* Identificar o inimigo que atirou e priorizá-lo para ataques futuros.
-
-
-## Anti-Gravidade (Gravitacional):
-Usar padrões baseados em probabilidades: Robôs campeões tentam prever a posição do inimigo e ajustar suas estratégias de tiro com base na probabilidade de acerto. Isso envolve métodos mais complexos, como modelos probabilísticos de trajetória, em vez de depender apenas de cálculos de ângulo e velocidade.
-
-"Vou aplicar o conceito de anti-gravidade de maneira simples no seu código. A ideia é que o robô se mova automaticamente para longe de inimigos e das paredes, como se fossem "fontes de repulsão". O movimento será básico, sem cálculos complexos."
-
------------------------------------------------------
-
-// Variáveis globais (se necessário)
-double battlefieldWidth = getBattleFieldWidth();
-double battlefieldHeight = getBattleFieldHeight();
-
-@Override
-public void run() {
-    // Loop principal
-    while (true) {
-        antiGravityMove();
-        execute(); // Executa os comandos de movimento
-    }
-}
-
-// Função de anti-gravidade
-public void antiGravityMove() {
-    double xForce = 0;
-    double yForce = 0;
-
-    // Repulsão das paredes
-    xForce += 1000 / Math.pow(getX(), 2); // Força da parede esquerda
-    xForce -= 1000 / Math.pow(battlefieldWidth - getX(), 2); // Força da parede direita
-    yForce += 1000 / Math.pow(getY(), 2); // Força da parede inferior
-    yForce -= 1000 / Math.pow(battlefieldHeight - getY(), 2); // Força da parede superior
-
-    // Repulsão do inimigo (usar último scan do radar)
-    ScannedRobotEvent e = getLastScannedRobotEvent();
-    if (e != null) {
-        double angleToEnemy = Math.toRadians(getHeading() + e.getBearing());
-        double enemyX = getX() + Math.sin(angleToEnemy) * e.getDistance();
-        double enemyY = getY() + Math.cos(angleToEnemy) * e.getDistance();
-
-        // Adiciona força de repulsão do inimigo
-        double distance = e.getDistance();
-        xForce -= 5000 / Math.pow(enemyX - getX(), 2);
-        yForce -= 5000 / Math.pow(enemyY - getY(), 2);
-    }
-
-    // Calcula a direção para mover
-    double angle = Math.atan2(yForce, xForce);
-    double moveX = Math.cos(angle) * 100; // Multiplicador para ajustar a velocidade
-    double moveY = Math.sin(angle) * 100;
-
-    // Move o robô
-    setTurnRightRadians(angle - Math.toRadians(getHeading())); // Gira para o ângulo de movimento
-    setAhead(Math.sqrt(moveX * moveX + moveY * moveY)); // Move para frente
-}
-
-// Método para capturar o último evento de escaneamento (necessário)
-private ScannedRobotEvent lastScannedEvent;
-
-@Override
-public void onScannedRobot(ScannedRobotEvent e) {
-    lastScannedEvent = e;
-}
-
-public ScannedRobotEvent getLastScannedRobotEvent() {
-    return lastScannedEvent;
-}
------------------------------------------------------
+---
